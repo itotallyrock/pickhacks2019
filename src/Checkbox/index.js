@@ -1,8 +1,10 @@
 import { View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import foodweb from 'foodweb';
 
-import { Checkbox, Toolbar } from '../react-native-material-ui';
+import { Toolbar } from '../react-native-material-ui';
+import Meal from '../components/Meal';
 import Container from '../Container';
 
 const styles = StyleSheet.create({
@@ -21,33 +23,25 @@ class CheckboxSpec extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { checked: false };
+        this.state = { foodName: 'skittles' };
     }
     render() {
+        const foodResults = foodweb.search(this.state.foodName)[0].data;
         return (
             <Container>
                 <Toolbar
                     leftElement="arrow-back"
                     onLeftElementPress={() => this.props.navigation.goBack()}
-                    centerElement="Checkbox"
+                    centerElement="Meal"
                 />
                 <View style={styles.container}>
-                    <Checkbox
-                        label="Unchecked"
-                        checked={this.state.checked}
-                        value="Value"
-                        onCheck={checked => this.setState({ checked })}
+                    <Meal
+                        name={this.state.foodName}
+                        timestamp={new Date()}
+                        ingredients={[]}
+                        nutritionalFacts={foodResults}
+                        source="manual"
                     />
-                    <Checkbox label="Checked by default" checked value="Value" />
-                    <Checkbox
-                        label="Custom icon"
-                        checked
-                        uncheckedIcon="star-border"
-                        checkedIcon="star"
-                        value="Value"
-                    />
-                    <Checkbox label="Disabled unchecked" disabled value="Value" />
-                    <Checkbox label="Disabled checked" checked disabled value="Value" />
                 </View>
             </Container>
         );
