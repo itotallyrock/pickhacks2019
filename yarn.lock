@@ -1780,6 +1780,13 @@ flat-cache@^1.2.1:
     graceful-fs "^4.1.2"
     write "^0.2.1"
 
+foodweb@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/foodweb/-/foodweb-1.0.0.tgz#687085e846107f3735cfba7fccf1d5037c1aa069"
+  integrity sha512-S3X60GtOfYrHSb9qlps9AJTd/VMwyJzz0b5Av4Pfa8Kjk1Xy+20El3tKcU8HeGj5W1wuvhbN59T+t1tBomodRw==
+  dependencies:
+    lunr "^2.1.6"
+
 for-in@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -2606,6 +2613,11 @@ lru-cache@^4.0.1:
   dependencies:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
+
+lunr@^2.1.6:
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.6.tgz#f278beee7ffd56ad86e6e478ce02ab2b98c78dd5"
+  integrity sha512-swStvEyDqQ85MGpABCMBclZcLI/pBIlu8FFDtmX197+oEgKloJ67QnB+Tidh0340HmLMs39c4GrkPY3cmkXp6Q==
 
 macos-release@^1.0.0:
   version "1.1.0"
