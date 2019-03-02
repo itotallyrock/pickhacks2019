@@ -1,21 +1,85 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-import { Card, ListItem } from '../react-native-material-ui';
+import { Icon, Card, ListItem } from '../../react-native-material-ui';
+
+const defaultProps = {
+    image: {
+        uri: '',
+    },
+    onLongPress: undefined,
+    nutritionalFacts: {
+        ndb: 0,
+        title: 'Unknown Food',
+        water: 0,
+        kcal: 0,
+        protein: 0,
+        lipidTotal: 0,
+        ash: 0,
+        carb: 0,
+        fiberTotalDietary: 0,
+        sugarTotal: 0,
+        elCa: 0,
+        elFe: 0,
+        elMg: 0,
+        elP: 0,
+        elK: 0,
+        elNa: 0,
+        elZn: 0,
+        elCu: 0,
+        elMa: 0,
+        elSe: 0,
+        vitaminC: 0,
+        thiamin: 0,
+        riboflavin: 0,
+        niacin: 0,
+        pantothenicAcid: 0,
+        vitaminB6: 0,
+        folateTotal: 0,
+        folicAcid: 0,
+        foodFolate: 0,
+        dietaryFolate: 0,
+        cholineTotal: 0,
+        vitaminB12: 0,
+        vitaminAIU: 0,
+        vitaminA: 0,
+        retinol: 0,
+        alphaCarotene: 0,
+        betaCarotene: 0,
+        betaCryptoxanthin: 0,
+        lycopene: 0,
+        luteinZeazanthin: 0,
+        vitaminE: 0,
+        vitaminD: 0,
+        vitaminDIU: 0,
+        vitaminK: 0,
+        saturatedFat: 0,
+        monounsaturatedFat: 0,
+        polyunsaturatedFat: 0,
+        cholesterol: 0,
+        primaryWeight: 0,
+        primaryWeightDesc: 'Unknown Serving Size',
+        secondaryWeight: 0,
+        secondaryWeightDesc: 'Unknown Serving Size',
+        refuse: 0,
+    },
+};
 
 const propTypes = {
     name: PropTypes.string.isRequired,
     image: PropTypes.shape({
         uri: PropTypes.string,
     }),
-    timestamp: PropTypes.instanceOf(Date),
+    source: PropTypes.oneOf(['camera', 'manual', 'barcode']).isRequired,
+    onLongPress: PropTypes.func,
+    timestamp: PropTypes.instanceOf(Date).isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
         servingSize: PropTypes.number.isRequired,
-    })),
+    })).isRequired,
     nutritionalFacts: PropTypes.shape({
-        ndb: PropTypes.number,
+        ndb: PropTypes.string,
         title: PropTypes.string,
         water: PropTypes.number,
         kcal: PropTypes.number,
@@ -68,20 +132,70 @@ const propTypes = {
         secondaryWeight: PropTypes.number,
         secondaryWeightDesc: PropTypes.string,
         refuse: PropTypes.number,
-    })
+    }),
 };
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    expandedContainer: {
+        flex: 1,
+        paddingHorizontal: 16,
+        paddingBottom: 16,
+    },
+    calories: {
+        paddingRight: 16,
+        fontWeight: 'bold',
+    },
 });
 
 class Meal extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            expanded: false,
+        };
+    }
+    getSourceIcon() {
+        let iconName = 'restaurant';
+        if (this.state.source === 'camera') iconName = 'photo-camera';
+        else if (this.state.source === 'barcode') iconName = 'barcode-scan';
+        return (
+            <Icon name={iconName} size={32} />
+        );
+    }
+    toggleExpanded() {
+        this.setState({ expanded: !this.state.expanded });
+    }
     render() {
         return (
-            <View style={styles.container}>
-                <Card>
-                    {this.propTypes.name}
+            <View>
+                <Card onPress={this.toggleExpanded.bind(this)} onLongPress={this.props.onLongPress}>
+                    <ListItem
+                        leftElement={
+                            this.getSourceIcon()
+                        }
+                        centerElement={{
+                            primaryText: this.props.name,
+                            secondaryText: this.props.timestamp.toDateString(),
+                        }}
+                        rightElement={
+                            <View>
+                                <Text style={styles.calories}>
+                                    {`${this.props.nutritionalFacts.kcal} Cal`}
+                                </Text>
+                                <Icon name={this.state.expanded ? 'keyboard-arrow-up' : 'keyboard-arrow-down'} />
+                            </View>
+                        }
+                    />
+                    {
+                        this.state.expanded &&
+                        <Text style={styles.expandedContainer}>
+                            Total Fats\t\t{this.props.nutritionalFacts.carb}
+                            Total Carbs\t\t{this.props.nutritionalFacts.lipidTotal}
+                        </Text>
+                    }
                 </Card>
             </View>
         );
@@ -89,5 +203,6 @@ class Meal extends Component {
 }
 
 Meal.propTypes = propTypes;
+Meal.defaultProps = defaultProps;
 
 export default Meal;
