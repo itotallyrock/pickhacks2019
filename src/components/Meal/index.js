@@ -2,7 +2,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
-import { Icon, Card, ListItem } from '../../react-native-material-ui';
+import { Icon, Card, ListItem, Divider } from '../../react-native-material-ui';
 
 const defaultProps = {
     image: {
@@ -134,18 +134,22 @@ const propTypes = {
         refuse: PropTypes.number,
     }),
 };
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
     expandedContainer: {
-        flex: 1,
         paddingHorizontal: 16,
         paddingBottom: 16,
     },
     calories: {
         paddingRight: 16,
         fontWeight: 'bold',
+    },
+    nutrientColLeft: {},
+    nutrientColRight: {
+        alignContent: 'right',
     },
 });
 
@@ -191,10 +195,17 @@ class Meal extends Component {
                     />
                     {
                         this.state.expanded &&
-                        <Text style={styles.expandedContainer}>
-                            Total Fats\t\t{this.props.nutritionalFacts.carb}
-                            Total Carbs\t\t{this.props.nutritionalFacts.lipidTotal}
-                        </Text>
+                        <View style={styles.expandedContainer}>
+                            <Text style={styles.nutrientColLeft}>Total Fats</Text>
+                            <Text style={styles.nutrientColRight}>
+                                {this.props.nutritionalFacts.lipidTotal}
+                            </Text>
+                            <Divider />
+                            <Text style={styles.nutrientColLeft}>Total Carbs</Text>
+                            <Text style={styles.nutrientColRight}>
+                                {this.props.nutritionalFacts.carb}
+                            </Text>
+                        </View>
                     }
                 </Card>
             </View>
