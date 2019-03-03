@@ -17,6 +17,12 @@ import IconToggle from './IconToggle';
 import List from './List';
 import RadioButton from './RadioButton';
 import Toolbar from './Toolbars';
+import ImageSearch from './ImageSearch';
+import Barcode from './Barcode';
+import ManualSearch from './ManualSearch';
+import Daily from './Daily';
+import Goals from './Goals';
+import Settings from './Settings';
 
 const AppNavigator = StackNavigator({
     home: { screen: Home },
@@ -35,6 +41,12 @@ const AppNavigator = StackNavigator({
     list: { screen: List },
     radioButton: { screen: RadioButton },
     toolbar: { screen: Toolbar },
+    manualSearch: { screen: ManualSearch },
+    imageSearch: { screen: ImageSearch },
+    barcode: { screen: Barcode },
+    daily: { screen: Daily },
+    goals: { screen: Goals },
+    settings: { screen: Settings },
 }, {
     headerMode: 'none',
 });

@@ -20,8 +20,8 @@ class ActionButtonSpec extends Component {
                     centerElement="Action button - speed dial"
                 />
                 <ActionButton
-                    actions={['email', { icon: 'phone', label: 'Phone' }, 'sms', 'favorite']}
-                    icon="share"
+                    actions={['image', 'barcode', 'search']}
+                    icon="add"
                     transition="speedDial"
                 />
             </Container>

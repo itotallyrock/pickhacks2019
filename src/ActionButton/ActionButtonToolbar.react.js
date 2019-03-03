@@ -20,8 +20,8 @@ class ActionButtonSpec extends Component {
                     centerElement="Action button - toolbar"
                 />
                 <ActionButton
-                    actions={['email', 'phone', 'sms', 'favorite']}
-                    icon="share"
+                    actions={['image', 'barcode', 'search']}
+                    icon="add"
                     transition="toolbar"
                 />
             </Container>

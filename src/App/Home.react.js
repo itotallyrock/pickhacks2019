@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import { ToastAndroid, ScrollView, Platform, Animated, Easing } from 'react-native';
+import { ToastAndroid, ScrollView, Platform, Animated, Easing, Button } from 'react-native';
 
 import routes from '../routes';
 
@@ -35,7 +35,7 @@ class Home extends Component {
         this.state = {
             selected: [],
             searchText: '',
-            active: 'people',
+            active: 'home',
             moveAnimated: new Animated.Value(0),
         };
     }
@@ -71,9 +71,6 @@ class Home extends Component {
         if (this.scrollDirection !== currentDirection) {
             this.scrollDirection = currentDirection;
 
-            this.setState({
-                bottomHidden: currentDirection === DOWN,
-            });
         }
     }
     show = () => {
@@ -113,8 +110,6 @@ class Home extends Component {
         return (
             <Toolbar
                 key="toolbar"
-                leftElement="menu"
-                onLeftElementPress={() => this.props.navigation.goBack()}
                 centerElement="Home"
                 searchable={{
                     autoFocus: true,
@@ -168,17 +163,16 @@ class Home extends Component {
                 </ScrollView>
                 <ActionButton
                     actions={[
-                        { icon: 'email', label: 'Email' },
-                        { icon: 'phone', label: 'Phone' },
-                        { icon: 'sms', label: 'Text' },
-                        { icon: 'favorite', label: 'Favorite' },
+                        { icon: 'camera-alt', label: 'Image', name: 'imageSearch' },
+                        { icon: 'barcode', label: 'Barcode', name: 'barcode' },
+                        { icon: 'search', label: 'Search', name: 'manualSearch' },
                     ]}
                     hidden={this.state.bottomHidden}
-                    icon="share"
+                    icon="add"
                     transition="speedDial"
                     onPress={(action) => {
-                        if (Platform.OS === 'android') {
-                            ToastAndroid.show(action, ToastAndroid.SHORT);
+                        if(action!='main-button'){
+                            this.props.navigation.navigate(action)
                         }
                     }}
                     style={{
@@ -191,28 +185,40 @@ class Home extends Component {
                     style={{ container: { position: 'absolute', bottom: 0, left: 0, right: 0 } }}
                 >
                     <BottomNavigation.Action
-                        key="today"
-                        icon={<Icon name="today" />}
-                        label="Today"
-                        onPress={() => this.setState({ active: 'today' })}
+                        key="home"
+                        icon="home"
+                        label="Home"
+                        onPress={() => {
+                          this.setState({ active: 'home' }),
+                          this.props.navigation.navigate('home')
+                        }}
                     />
                     <BottomNavigation.Action
-                        key="people"
-                        icon="people"
-                        label="People"
-                        onPress={() => this.setState({ active: 'people' })}
+                        key="daily"
+                        icon="schedule"
+                        label="Daily"
+                        onPress={() => {
+                          this.setState({ active: 'daily' }),
+                          this.props.navigation.navigate('daily')
+                        }}
                     />
                     <BottomNavigation.Action
-                        key="bookmark-border"
-                        icon="bookmark-border"
-                        label="Bookmark"
-                        onPress={() => this.setState({ active: 'bookmark-border' })}
+                        key="goals"
+                        icon="timeline"
+                        label="Goals"
+                        onPress={() => {
+                          this.setState({ active: 'goals' }),
+                          this.props.navigation.navigate('goals')
+                        }}
                     />
                     <BottomNavigation.Action
                         key="settings"
                         icon="settings"
                         label="Settings"
-                        onPress={() => this.setState({ active: 'settings' })}
+                        onPress={() => {
+                          this.setState({ active: 'settings' }),
+                          this.props.navigation.navigate('settings')
+                        }}
                     />
                 </BottomNavigation>
             </Container>
