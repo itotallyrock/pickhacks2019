@@ -81,7 +81,18 @@ class Meal extends Component {
         return (
             <View style={styles.container}>
                 <Card>
-                    {this.propTypes.name}
+                    <ListItem
+                        leftElement={<Avatar text="JM" />}
+                        centerElement={{
+                            primaryText: this.props.name,
+                            secondaryText: this.props.timestamp.toDateString(),
+                        }}
+                    />
+                    <View style={styles.textContainer}>
+                        <Text>
+                            {this.props.kcal + ' Calories'}
+                        </Text>
+                    </View>
                 </Card>
             </View>
         );
