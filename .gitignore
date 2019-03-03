@@ -53,3 +53,7 @@ log.android
 .idea
 webpack-assets.json
 *report*
+
+# Secrets #
+###########
+.env
